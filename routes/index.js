@@ -95,7 +95,7 @@ exports.socket = function(socket)
 	var hs = socket.handshake;
 	console.log('A socket with sessionID ' + hs.sessionID  + ' connected!');
 	
-	socket.join('hs.sessionID')
+	socket.join(hs.sessionID);
 	
 	var remoteurl = APP_URL + "/remote?sessionID=" + hs.sessionID
 	var remoteimage = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + encodeURIComponent(remoteurl);
@@ -168,8 +168,16 @@ exports.socket = function(socket)
 			}
 			);
 	});
+	
+	
 
-
+	//Remote socket functions
+	socket.on('refresh', function(data){
+		socket.broadcast.to( data.sessionID ).emit('refresh', data)
+	});
+	socket.on('pickvid', function(data){
+		socket.broadcast.to( data.sessionID ).emit('pickvid', data)
+	});
 }
 
 var videoLikeXML = '<?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"><yt:rating value="like"/></entry>';

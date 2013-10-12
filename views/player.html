@@ -100,6 +100,10 @@
 		player3.loadVideoById( data.videos[2] );
 		player4.loadVideoById( data.videos[3] );
 	});
+	
+	socket.on('refresh', function(data){
+		socket.emit("getvideos", {});
+	});
 
 </script>
 	  
