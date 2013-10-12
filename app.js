@@ -51,7 +51,9 @@ server.listen(app.get('port'), function(){
 app.get('/', routes.index);
 app.get('/oauth2callback', routes.oauth2callback);
 app.get('/player', routes.player);
-app.get('/logout', routes.logout);
+
+app.get('/logout', require('./routes/logout').get);
+app.get('/remote', require('./routes/remote').get );
 
 var cookie = require('cookie');
 var connect = require('connect');

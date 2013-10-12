@@ -24,10 +24,7 @@ exports.index = function(req, res){
 
 };
 
-exports.logout = function(req, res){
-	req.session.tokens = null;
-	res.redirect("/");
-};
+
 
 
 exports.player = function(req, res){
@@ -97,6 +94,13 @@ exports.socket = function(socket)
 
 	var hs = socket.handshake;
 	console.log('A socket with sessionID ' + hs.sessionID  + ' connected!');
+	
+	socket.join('hs.sessionID')
+	
+	var remoteurl = APP_URL + "/remote?sessionID=" + hs.sessionID
+	var remoteimage = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + encodeURIComponent(remoteurl);
+	socket.emit('qrcode', { url : remoteurl, image: remoteimage });
+	
 	socket.emit('success', {});
 
 	socket.on('getvideos', function(data){
