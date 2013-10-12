@@ -3,8 +3,8 @@
 	<head>
 		<title>StumbleTube</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	
+		<link href="css/style.css" rel="stylesheet" media="screen">
+		<link href="css/font-awesome.css" rel="stylesheet" media="screen">
 	
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
@@ -31,36 +31,26 @@
 
 	</head>
 	<body>
-		<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">StumbleTube</a>
-			</div>
+		<nav class="bar">
+				<a class="navbar-brand">StumbleTube</a>
 		</nav>
-		<div class="container">
-			<div class="row">
-				<div class="btn-group btn-group-lg btn-group-justified">
-					<a onclick="pickvideo(1)" class="btn btn-default">Video 1</a>
-					<a onclick="pickvideo(2)" class="btn btn-default">Video 2</a>
+				<div>
+					<a onclick="pickvideo(1)" class="taparea"><p>Video 1</p></a>
 				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="btn-group btn-group-lg btn-group-justified">
-					<a onclick="pickvideo(3)" class="btn btn-default">Video 3</a>
-					<a onclick="pickvideo(4)" class="btn btn-default">Video 4</a>
+				<div>
+					<a onclick="pickvideo(2)" class="taparea"><p>Video 2</p></a>
 				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="btn-group btn-group-lg btn-group-justified">
-					<a onclick="likevideo()" class="btn btn-default">Like</a>
-					<a onclick="refresh()" class="btn btn-default">Refresh</a>
+				<div>
+					<a onclick="pickvideo(3)" class="taparea"><p>Video 3</p></a>
 				</div>
-			</div>
-		</div>
-		<script src="//code.jquery.com/jquery.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+				<div>
+					<a onclick="pickvideo(4)" class="taparea"><p>Video 4</p></a>
+				</div>
+				<div>
+					<a onclick="likevideo()" class="taparea"><p>Like<br><i class="icon-thumbs-up-alt"></i></p></a>
+				</div>
+				<div>
+					<a onclick="refresh()" class="taparea"><p>Refresh<br><i class="icon-refresh"></i></p></a>
+				</div>
 	</body>
 </html>
