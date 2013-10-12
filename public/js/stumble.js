@@ -30,8 +30,8 @@ $(window).ready(function() {
 		socket.emit("getvideos", {});
 	});
 	
-      $(".normal").click(function() {
-      $("iframe").css('-webkit-filter', 'sepia(0%)');
+      $(".norm").click(function() {
+        $("iframe").css("-webkit-filter", "");
       });
       $(".sepia").click(function() {
         $("iframe").css("-webkit-filter", "sepia(100%)");
@@ -41,28 +41,70 @@ $(window).ready(function() {
       });
 
 });
-
+    var vidId;
+    var vidCode;
     function first() {
-      $(".vidwrapper").queue(function() {
-      $(".vidwrapper").css("opacity", 0).dequeue();
-      })
-      $(this).parent().css("opacity", 1)
-      $(".vidwrapper").css("width", 0);
-      $(".vidwrapper").css("height", 0);
-      $(this).parent().css("height", $(window).height());
-      $(this).parent().css("width", $(window).width());  
+      $(".like").removeClass("activated");
+      $(".like").addClass("unactive");
+      $(".dislike").removeClass("activated");
+      $(".dislike").addClass("unactive");
+      $(".vidwrapper").addClass("unfeatured");
+      $(this).parent().removeClass("unfeatured");
+      $("#refresh").addClass("refresh-full"); 
+      $("#refresh").removeClass("grad"); 
+      $("#menu").addClass("hidden");
+      $("#bot-menu").removeClass("hidden");
+      $(this).parent().addClass("featured"); 
+      if($(this).hasClass("full1")) {
+        $(".full1").css("opacity", 0.01)
+        vidId = player1.getVideoUrl();
+        vidCode = vidId.replace("https://www.youtube.com/watch?feature=player_embedded&v=", "");
+      };
+      if($(this).hasClass("full2")) {
+        $(".full2").css("opacity", 0.01)
+        vidId = player2.getVideoUrl();
+        vidCode = vidId.replace("https://www.youtube.com/watch?feature=player_embedded&v=", "");
+      };
+      if($(this).hasClass("full3")) {
+        $(".full3").css("opacity", 0.01)
+        vidId = player3.getVideoUrl();
+        vidCode = vidId.replace("https://www.youtube.com/watch?feature=player_embedded&v=", "");
+      };
+      if($(this).hasClass("full4")) {
+        $(".full4").css("opacity", 0.01)
+        vidId = player4.getVideoUrl();
+        vidCode = vidId.replace("https://www.youtube.com/watch?feature=player_embedded&v=", "");
+      };
+
       $(this).one("click", second);
     }
     function second() {
-      $(".vidwrapper").css("opacity", 1);
-      $(".vidwrapper").css("height", $(window).height()/2);
-      $(".vidwrapper").css("width", $(window).width()/2);
+      $(".vidwrapper").removeClass("unfeatured");
+      $(".vidwrapper").removeClass("featured");
+      $("#refresh").addClass("grad"); 
+      $("#refresh").removeClass("refresh-full"); 
+      $("#menu").removeClass("hidden");
+      $("#bot-menu").addClass("hidden");
       $(this).one("click", first);
     }
     $(".full1").one("click", first);
     $(".full2").one("click", first);
     $(".full3").one("click", first);
     $(".full4").one("click", first);
+
+
+    $(".like").click(function() {
+      $(".like").addClass("activated");
+      $(".like").removeClass("unactive");
+      socket.emit("likevideo", { videoid : vidCode });
+    });
+    $(".dislike").click(function() {
+      $(".dislike").addClass("activated");
+      $(".dislike").removeClass("unactive");
+      socket.emit("dislikevideo", { videoid : vidCode });
+    });
+
+
 
 var tag = document.createElement('script');
 

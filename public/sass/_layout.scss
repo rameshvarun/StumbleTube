@@ -7,7 +7,7 @@ body {
 	height: 100%;
 	width: 100%;
 	background-color: #FFF;
-	z-index: 99;
+	z-index: 100;
 	video {
 		position: absolute;
 		top: 50%;
@@ -18,7 +18,14 @@ body {
 }
 
 
-.wrapper {
+.wrapper1 {
 	display: block;
+	width: 90%;
+	float: left;
 	}
 
+.wrapper2 {
+	display: block;
+	width: 10%;
+	float: left;
+	}
