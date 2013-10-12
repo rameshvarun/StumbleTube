@@ -96,9 +96,41 @@ exports.socket = function(socket)
 	socket.on('getvideos', function(data){
 		var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + gauth.v2_key + "&access_token=" + hs.session.tokens.access_token;
 		console.log(recUrl);
-		
-		videos = ['CMdHDHEuOUE', 'CMdHDHEuOUE', 'CMdHDHEuOUE', 'CMdHDHEuOUE']
-		socket.emit('newvideos', {videos : videos} );
+		request.get( recUrl,
+		function (error, response, body)
+		{
+			  if (!error && response.statusCode == 200)
+			  {
+				parseString( body,
+					function (err, result)
+					{
+						videos = [];
+						
+						i = 0
+						while(videos.length < 4)
+						{
+							var entry = result.feed.entry[i];
+							var list = entry.id[0].split(":")
+							var id = list[ list.length - 1]
+							
+							if( videos.indexOf(id) < 0)
+							{
+								videos.push(id);
+								hs.session.videos.push(id);
+							}
+							++i;
+						}
+						
+						socket.emit('newvideos', {videos : videos} );
+					}
+				);
+			  }
+			  else
+			  {
+				res.send("Could not find recommendations.");
+			  }
+		}  
+		)
 	});
 	
 	socket.on('likevideo', function(data){
