@@ -93,6 +93,13 @@
 	  <script src="/socket.io/socket.io.js"></script>
 	  <script>
   var socket = io.connect( '{{ APP_URL }}' );
+  
+  socket.on('newvideos', function(data){
+		player1.loadVideoById( data.videos[0] );
+		player2.loadVideoById( data.videos[1] );
+		player3.loadVideoById( data.videos[2] );
+		player4.loadVideoById( data.videos[3] );
+	});
 
 </script>
 	  

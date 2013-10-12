@@ -26,9 +26,19 @@ $(window).ready(function() {
       player4.setVolume(0);
     });
 
-      $(".normal").css("-webkit-filter", "none");
-      $(".sepia").css("-webkit-filter", "sepia(100%)");
-      $(".grayscale").css("-webkit-filter", "grayscale(100%)");
+	$("#refresh").click(function() {
+		socket.emit("getvideos", {});
+	});
+	
+      $(".normal").click(function() {
+      $("iframe").css('-webkit-filter', 'sepia(0%)');
+      });
+      $(".sepia").click(function() {
+        $("iframe").css("-webkit-filter", "sepia(100%)");
+      });
+      $(".grayscale").click(function() {
+        $("iframe").css("-webkit-filter", "grayscale(100%)");
+      });
 
 });
 

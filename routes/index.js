@@ -94,10 +94,11 @@ exports.socket = function(socket)
 	socket.emit('success', {});
 
 	socket.on('getvideos', function(data){
-		socket.emit('newvideos', {vid1: 'CMdHDHEuOUE',
-									vid2: 'CMdHDHEuOUE',
-									vid3: 'CMdHDHEuOUE',
-									vid4: 'CMdHDHEuOUE'} );
+		var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + gauth.v2_key + "&access_token=" + hs.session.tokens.access_token;
+		console.log(recUrl);
+		
+		videos = ['CMdHDHEuOUE', 'CMdHDHEuOUE', 'CMdHDHEuOUE', 'CMdHDHEuOUE']
+		socket.emit('newvideos', {videos : videos} );
 	});
 	
 	socket.on('likevideo', function(data){
