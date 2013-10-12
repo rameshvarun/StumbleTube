@@ -97,7 +97,7 @@ exports.socket = function(socket)
 	
 	socket.join(hs.sessionID);
 	
-	var remoteurl = APP_URL + "/remote?sessionID=" + hs.sessionID
+	var remoteurl = APP_URL + "remote?sessionID=" + hs.sessionID
 	var remoteimage = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + encodeURIComponent(remoteurl);
 	socket.emit('qrcode', { url : remoteurl, image: remoteimage });
 	

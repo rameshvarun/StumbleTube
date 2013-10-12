@@ -127,14 +127,32 @@
      });
 
      socket.on('pickvideo', function(data){
+	 
+		$(".full1").trigger('mouseleave');
+		$(".full2").trigger('mouseleave');
+		$(".full3").trigger('mouseleave');
+		$(".full4").trigger('mouseleave');
+		
 		if( data.i == 1)
+		{
 			$(".full1").trigger('click');
+			$(".full1").trigger('mouseenter');
+		}
 		if( data.i == 2)
+		{
 			$(".full2").trigger('click');
+			$(".full2").trigger('mouseenter');
+		}
 		if( data.i == 3)
+		{
 			$(".full3").trigger('click');
+			$(".full3").trigger('mouseenter');
+		}
 		if( data.i == 4)
+		{
 			$(".full4").trigger('click');
+			$(".full4").trigger('mouseenter');
+		}
      });
 
      socket.on('likevideoRemote', function(data){
