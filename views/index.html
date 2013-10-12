@@ -6,12 +6,16 @@
 
 <link rel="stylesheet" type="text/css" href="css/zocial.css" />
 <link href='http://fonts.googleapis.com/css?family=Pompiere' rel='stylesheet' type='text/css'>
+
 </head>
-
-<body>
-
-<a href="{{ loginurl }}" class="zocial google">Sign in with Google</a>
-
-</body>
+  <body>
+      
+      <center> <video style="padding-top: 120px;" id="bgv" class="fillWidth" onloadeddata="var video = this; setTimeout(function() { video.play(); }, 1000)">
+        <source src="img/stumble.mp4" type='video/mp4' />
+        <source src="img/stumble.oggtheora.ogv" type="video/ogg"/>
+        <source src="img/stumble.webmsd.webm" type="video/webm"/>
+      </video> <center>
+      <a href="{{ loginurl }}" class="zocial google">Sign in with Google</a>
+  </body>
 <!-- ... -->
 </html>
