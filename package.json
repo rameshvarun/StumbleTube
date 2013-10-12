@@ -11,7 +11,8 @@
     "swig": "*",
 	"socket.io": "*",
 	"mongoose" : "*",
-	"async" : "*"
+	"async" : "*",
+	"googleapis" : "*"
   },
   "engines": {
 	"node": "0.10.x",

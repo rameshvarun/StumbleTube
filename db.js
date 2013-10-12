@@ -1,5 +1,11 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/stumbletube');
+
+var uristring = 
+process.env.MONGOLAB_URI || 
+process.env.MONGOHQ_URL || 
+'mongodb://localhost/stumbletube';
+
+mongoose.connect( uristring );
 
 var db = mongoose.connection;
 db.once('open', function callback () {
