@@ -107,11 +107,13 @@ $(window).ready(function() {
     $(".like").click(function() {
       $(".like").addClass("activated");
       $(".like").removeClass("unactive");
+      $(".dislike").removeClass("activated");
       socket.emit("likevideo", { videoid : vidCode });
     });
     $(".dislike").click(function() {
       $(".dislike").addClass("activated");
       $(".dislike").removeClass("unactive");
+      $(".like").removeClass("activated");
       socket.emit("dislikevideo", { videoid : vidCode });
     });
 
