@@ -24,6 +24,12 @@ exports.index = function(req, res){
 
 };
 
+exports.logout = function(req, res){
+	req.session.tokens = null;
+	res.redirect("/");
+};
+
+
 exports.player = function(req, res){
 	var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + gauth.v2_key + "&access_token=" + req.session.tokens.access_token;
 	console.log(recUrl);
