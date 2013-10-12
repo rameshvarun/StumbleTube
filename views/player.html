@@ -126,7 +126,15 @@
          $('#qrcode').attr('src', data.image);
      });
 
-     socket.on('pickVideo', function(data){
+     socket.on('pickvideo', function(data){
+		if( data.i == 1)
+			$(".full1").trigger('click');
+		if( data.i == 2)
+			$(".full2").trigger('click');
+		if( data.i == 3)
+			$(".full3").trigger('click');
+		if( data.i == 4)
+			$(".full4").trigger('click');
      });
 
      socket.on('likevideoRemote', function(data){
