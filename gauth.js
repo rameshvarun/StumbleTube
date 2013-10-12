@@ -7,7 +7,7 @@ exports.CLIENT_ID = CLIENT_ID;
 
 var CLIENT_SECRET = 'yH4Azb_hwLlawzKtbO_1y2tO';
 
-var APP_URL = process.env.PORT || "http://localhost:3000/"
+var APP_URL = process.env.URL || "http://localhost:3000/"
 var REDIRECT_URL = APP_URL + 'oauth2callback';
 
 oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
