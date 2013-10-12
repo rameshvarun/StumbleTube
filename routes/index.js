@@ -23,9 +23,7 @@ exports.oauth2callback = function(req, res){
 		
 		console.log(tokens);
 		
-		var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + 
-		'AI39si5z6jY5ytuT5VlI5T6Q-jfTQzAFqYSsFGPijlxYj0ubALlEiTOWxattlEGnERbz3irBw1HNZjdbDPX04fi6khIkD4B74A' +
-		"&access_token=" + tokens.access_token;
+		var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + 'AI39si5z6jY5ytuT5VlI5T6Q-jfTQzAFqYSsFGPijlxYj0ubALlEiTOWxattlEGnERbz3irBw1HNZjdbDPX04fi6khIkD4B74A' + "&access_token=" + tokens.access_token;
 		
 		console.log(recUrl);
 
