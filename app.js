@@ -45,6 +45,7 @@ server.listen(app.get('port'), function(){
 
 app.get('/', routes.index);
 app.get('/oauth2callback', routes.oauth2callback);
+app.get('/player', routes.player);
 
 io.sockets.on('connection', function(socket)
 {
