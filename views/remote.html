@@ -11,7 +11,22 @@
 var socket = io.connect( '{{ APP_URL }}' );
 
 var sessionID = '{{ sessionID }}';
-socket.emit("refresh", { sessionID : sessionID });
+
+function refresh() {
+	socket.emit("refresh", { sessionID : sessionID });
+}
+
+function pickvideo(i) {
+	socket.emit("pickvideo", { sessionID : sessionID, i : i });
+}
+
+function likevideo() {
+	socket.emit("likevideoRemote", { sessionID : sessionID });
+}
+
+function dislikevideo() {
+	socket.emit("dislikevideoRemote", { sessionID : sessionID });
+}
 
 </script>
 
