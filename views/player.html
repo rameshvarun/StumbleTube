@@ -38,10 +38,13 @@
 
       <div id="menu" class="side-menu">
         <ul>
+          <li><a class="stumble" style="height: 50px; overflow: hidden;"><img src="img/logo.gif" style="height: 100px; width; 100px; margin-top: -20px;"></a></li>
+          <li><a class="remote">Remote</a></li>
           <li><a class="norm">Normal</a></li>
           <li><a class="sepia">Sepia</a></li>
           <li><a class="grayscale">Grayscale</a></li>
           <li><a class="logout" href="/logout/">Logout <i class="icon-signout"></i></a></li>
+          <li id="qr" class="hidden"><img id="qrcode" src="" style="width: 10%"/></li>
         </ul>
       </div>
 
@@ -117,6 +120,10 @@
 	
 	 socket.on('refresh', function(data){
           socket.emit("getvideos", {});
+     });
+	 
+	 socket.on('qrcode', function(data){
+         $('#qrcode').attr('src', data.image);
      });
 
      socket.on('pickVideo', function(data){

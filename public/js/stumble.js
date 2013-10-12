@@ -29,6 +29,17 @@ $(window).ready(function() {
 	$("#refresh").click(function() {
 		socket.emit("getvideos", {});
 	});
+
+  function qrshow() {
+    $("#qr").removeClass("hidden");
+    $(this).one("click", qrhide);
+  };
+
+  function qrhide() {
+    $("#qr").addClass("hidden");
+    $(this).one("click", qrshow);
+  }
+    $(".remote").one("click", qrshow);
 	
       $(".norm").click(function() {
         $("iframe").css("-webkit-filter", "");

@@ -1108,3 +1108,13 @@ iframe {
   color: #CC181E;
   background-color: #999;
 }
+
+/* line 156, ../sass/_module.scss */
+#qr {
+  background-color: #333;
+  padding-top: 25px;
+}
+/* line 159, ../sass/_module.scss */
+#qr:hover {
+  background-color: #333;
+}
