@@ -7,16 +7,17 @@
   },
   "dependencies": {
     "express": "*",
-	"connect-redis": "*",
+	"cookie": "*",
 	"session" : "*",
+	"connect" : "*",
     "swig": "*",
 	"consolidate": "*",
 	"socket.io": "*",
-	"mongoose" : "*",
 	"async" : "*",
 	"googleapis" : "*",
 	"request" : "*",
-	"xml2js" : "*"
+	"xml2js" : "*",
+	"redis" : "*"
   },
   "engines": {
 	"node": "0.10.x",

@@ -6,7 +6,14 @@
 
 </head>
   <body>
-    
+
+      <div id="loader">
+      <video id="bgv" class="fillWidth" onloadeddata="var video = this; setTimeout(function() { video.play(); }, 1000)">
+        <source src="img/stumble.mp4" type='video/mp4' />
+        <source src="img/stumble.oggtheora.ogv" type="video/ogg"/>
+        <source src="img/stumble.webmsd.webm" type="video/webm"/>
+      </video>
+      </div>
 
       <div class="vidwrapper">
         <a class="full1"></a>
@@ -28,6 +35,15 @@
         <div id="player4"></div>
       </div>
 
+      <div id="menu">
+        <ul>
+          <li><a href="">Normal</a></li>
+          <li><a href="">Sepia</a></li>
+          <li><a href="">Grayscale</a></li>
+        </ul>
+      </div>
+
+      <div id="refresh"><img src="https://cdn1.iconfinder.com/data/icons/juicyfruit_by_salleedesign/256x256/refresh.png" alt=""></div>
 
     <script> 
     function onYouTubeIframeAPIReady() {
@@ -74,6 +90,18 @@
       }
       </script>
 
+	  <script src="/socket.io/socket.io.js"></script>
+	  <script>
+  var socket = io.connect( '{{ APP_URL }}' );
+
+</script>
+	  
     <script src="js/stumble.js"></script>
+        <script>
+        setTimeout(function() {
+          $("#loader").delay(3500).fadeOut(500);
+        }, 3500);
+    
+    </script>
   </body>
 </html>

@@ -12,8 +12,13 @@ var routes = require('./routes');
 var app = express();
 
 //Redis-stored session
-app.use(express.cookieParser('art4aefdasvdfacszxzZDsar'));
-app.use(express.session());
+var MemoryStore = express.session.MemoryStore;
+var sessionStore = new MemoryStore();
+
+var secret = 'art4aefdasvdfacszxzZDsar';
+
+app.use(express.cookieParser(secret));
+app.use(express.session( {store: sessionStore, key: 'express.sid'} ));
 
 //All environments
 app.set('port', process.env.PORT || 3000);
@@ -47,22 +52,34 @@ app.get('/', routes.index);
 app.get('/oauth2callback', routes.oauth2callback);
 app.get('/player', routes.player);
 
-io.sockets.on('connection', function(socket)
-{
+var cookie = require('cookie');
+var connect = require('connect');
+var Session = require('connect').middleware.session.Session;
 
-	socket.emit('success', {});
+io.set('authorization', function (data, accept) {
 
-	socket.on('getvideos', function(data){
-		socket.emit('newvideos', {vid1: 'CMdHDHEuOUE',
-									vid2: 'CMdHDHEuOUE',
-									vid3: 'CMdHDHEuOUE',
-									vid4: 'CMdHDHEuOUE'} );
-	});
+   if (data.headers.cookie) {
+        data.cookie = connect.utils.parseSignedCookies(cookie.parse(decodeURIComponent(data.headers.cookie)),secret);
+        
+		data.sessionID = data.cookie['express.sid'];
+        // save the session store to the data object 
+        // (as required by the Session constructor)
+        data.sessionStore = sessionStore;
+        sessionStore.get(data.sessionID, function (err, session) {
+            if (err || !session) {
+                accept('Error', false);
+            } else {
+                // create a session object, passing data as request and our
+                // just acquired session data
+                data.session = new Session(data, session);
+                accept(null, true);
+            }
+        });
+    } else {
+       return accept('No cookie transmitted.', false);
+    }
 	
-	socket.on('likevideo', function(data){
-		
-	});
+});
 
-
-} )
+io.sockets.on('connection', routes.socket )
 

@@ -37,7 +37,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 /* line 32, ../sass/_reset.scss */
-body {
+html, body {
   line-height: 1;
   width: 100%;
   height: 100%;
@@ -877,11 +877,33 @@ p {
 }
 
 /* line 1, ../sass/_layout.scss */
+body {
+  background-color: #222;
+}
+
+/* line 5, ../sass/_layout.scss */
+#loader {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #FFF;
+  z-index: 99;
+}
+/* line 11, ../sass/_layout.scss */
+#loader video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -150px;
+  margin-top: -150px;
+}
+
+/* line 21, ../sass/_layout.scss */
 .wrapper {
   display: block;
 }
 
-/* line 5, ../sass/_layout.scss */
+/* line 1, ../sass/_module.scss */
 .vidwrapper {
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -891,9 +913,10 @@ p {
   position: relative;
   float: left;
   padding: 0;
-  width: 50%;
+  width: 45%;
+  height: 50%;
 }
-/* line 11, ../sass/_layout.scss */
+/* line 8, ../sass/_module.scss */
 .vidwrapper a {
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
@@ -905,18 +928,86 @@ p {
   height: 100%;
   background-color: #333;
   opacity: 0.5;
-  z-index: 999;
+  z-index: 44;
 }
-/* line 19, ../sass/_layout.scss */
+/* line 16, ../sass/_module.scss */
 .vidwrapper a:hover {
   opacity: 0.001;
 }
+@media (max-width: 1024px) {
+  /* line 1, ../sass/_module.scss */
+  .vidwrapper {
+    width: 50%;
+    height: 45%;
+  }
+}
 
-/* line 25, ../sass/_layout.scss */
+/* line 27, ../sass/_module.scss */
 iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  -webkit-filter: grayscale(100%);
+}
+
+/* line 36, ../sass/_module.scss */
+#refresh {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  z-index: 66;
+  box-shadow: 0 0 5px #fff;
+}
+/* line 48, ../sass/_module.scss */
+#refresh:hover {
+  background-color: #FFF;
+}
+/* line 51, ../sass/_module.scss */
+#refresh img {
+  width: 100%;
+  height: 100%;
+  -webkit-filter: grayscale(100%);
+}
+@media (max-width: 1024px) {
+  /* line 36, ../sass/_module.scss */
+  #refresh {
+    top: 45%;
+    left: 50%;
+  }
+}
+
+/* line 62, ../sass/_module.scss */
+#menu {
+  color: #fff;
+  z-index: 0;
+}
+/* line 65, ../sass/_module.scss */
+#menu ul li {
+  list-style: none;
+}
+/* line 67, ../sass/_module.scss */
+#menu ul li a {
+  display: block;
+  padding: 25px 0;
+  width: 100%;
+  text-align: center;
+  background-color: #666;
+}
+@media (max-width: 1024px) {
+  /* line 65, ../sass/_module.scss */
+  #menu ul li {
+    float: left;
+  }
 }

@@ -8,14 +8,24 @@
  var request = require('request');
  
 var parseString = require('xml2js').parseString;
+
+var db = require('./../db');
+
+var APP_URL = process.env.URL || "http://localhost:3000/"
  
 exports.index = function(req, res){
 
   res.render( 'index.html', { loginurl: gauth.loginurl})
+    
+  if(req.session.tokens)
+  {
+	res.redirect('/player');
+  }
+
 };
 
 exports.player = function(req, res){
-	var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + 'AI39si5z6jY5ytuT5VlI5T6Q-jfTQzAFqYSsFGPijlxYj0ubALlEiTOWxattlEGnERbz3irBw1HNZjdbDPX04fi6khIkD4B74A' + "&access_token=" + req.session.tokens.access_token;
+	var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + gauth.v2_key + "&access_token=" + req.session.tokens.access_token;
 	console.log(recUrl);
 	
 	request.get( recUrl,
@@ -44,9 +54,13 @@ exports.player = function(req, res){
 							++i;
 						}
 						
-						res.render( 'player.html', { videos: videos})
+						res.render( 'player.html', { videos: videos, APP_URL: APP_URL})
 					}
 				);
+			  }
+			  else
+			  {
+				res.send("Could not find recommendations.");
 			  }
 		}  
 	)
@@ -57,6 +71,8 @@ exports.oauth2callback = function(req, res){
   gauth.client.getToken( code,
   
    function(err, tokens){
+   
+   
 		req.session.tokens = tokens;
 		
 		if( !req.session.videos)
@@ -69,3 +85,24 @@ exports.oauth2callback = function(req, res){
   );
   
 };
+
+exports.socket = function(socket)
+{
+
+	var hs = socket.handshake;
+	console.log('A socket with sessionID ' + hs.sessionID  + ' connected!');
+	socket.emit('success', {});
+
+	socket.on('getvideos', function(data){
+		socket.emit('newvideos', {vid1: 'CMdHDHEuOUE',
+									vid2: 'CMdHDHEuOUE',
+									vid3: 'CMdHDHEuOUE',
+									vid4: 'CMdHDHEuOUE'} );
+	});
+	
+	socket.on('likevideo', function(data){
+		
+	});
+
+
+}
