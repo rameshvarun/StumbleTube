@@ -11,13 +11,18 @@ var routes = require('./routes');
 
 var app = express();
 
+//Redis-stored session
+app.use(express.cookieParser('art4aefdasvdfacszxzZDsar'));
+app.use(express.session());
+
 //All environments
 app.set('port', process.env.PORT || 3000);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
+app.use( express.methodOverride() );
+
+
 
 //Register Swig as template parser
 app.engine('html', swig.renderFile);
@@ -28,6 +33,8 @@ swig.setDefaults({ cache: false });
 //Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(app.router);
+
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
@@ -37,6 +44,7 @@ server.listen(app.get('port'), function(){
 });
 
 app.get('/', routes.index);
+app.get('/oauth2callback', routes.oauth2callback);
 
 io.sockets.on('connection', function(socket)
 {

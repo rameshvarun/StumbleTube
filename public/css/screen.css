@@ -1,0 +1,922 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* line 18, ../sass/_reset.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  font-family: Helvetica,Arial,sans-serif;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+/* line 29, ../sass/_reset.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* line 32, ../sass/_reset.scss */
+body {
+  line-height: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 37, ../sass/_reset.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 40, ../sass/_reset.scss */
+a, a:hover, a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* line 44, ../sass/_reset.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 48, ../sass/_reset.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 52, ../sass/_reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 92, ../sass/_base.scss */
+h1 {
+  font-size: 400%;
+}
+
+/* line 95, ../sass/_base.scss */
+h2 {
+  font-size: 250%;
+}
+
+/* line 98, ../sass/_base.scss */
+h3 {
+  font-size: 150%;
+}
+
+/* line 101, ../sass/_base.scss */
+h4 {
+  font-size: 85%;
+}
+
+/* line 104, ../sass/_base.scss */
+h5 {
+  font-size: 75%;
+}
+
+/* line 107, ../sass/_base.scss */
+h6 {
+  font-size: 50%;
+}
+
+/* line 111, ../sass/_base.scss */
+p {
+  font-size: 100%;
+}
+
+/* line 115, ../sass/_base.scss */
+.heavy {
+  font-weight: 900;
+  font-size: 1.15em;
+}
+
+/* Grid HTML Classes */
+/* line 122, ../sass/_base.scss */
+.row {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 100%;
+  *zoom: 1;
+}
+
+/* line 129, ../sass/_base.scss */
+.row:before, .row:after {
+  content: " ";
+  display: table;
+}
+
+/* line 132, ../sass/_base.scss */
+.row:after {
+  clear: both;
+}
+
+/* line 135, ../sass/_base.scss */
+.row.collapse .column,
+.row.collapse .columns {
+  padding-left: 0;
+  padding-right: 0;
+  float: left;
+}
+
+/* line 139, ../sass/_base.scss */
+.row .row {
+  margin-left: -0.9375em;
+  margin-right: -0.9375em;
+  max-width: none;
+  width: auto;
+  *zoom: 1;
+}
+
+/* line 145, ../sass/_base.scss */
+.row .row:before, .row .row:after {
+  content: " ";
+  display: table;
+}
+
+/* line 148, ../sass/_base.scss */
+.row .row:after {
+  clear: both;
+}
+
+/* line 150, ../sass/_base.scss */
+.row .row.collapse {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+  width: auto;
+  *zoom: 1;
+}
+
+/* line 156, ../sass/_base.scss */
+.row .row.collapse:before, .row .row.collapse:after {
+  content: " ";
+  display: table;
+}
+
+/* line 159, ../sass/_base.scss */
+.row .row.collapse:after {
+  clear: both;
+}
+
+/* line 163, ../sass/_base.scss */
+.column,
+.columns {
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+@media only screen {
+  /* line 171, ../sass/_base.scss */
+  .small-1 {
+    width: 8.33333%;
+  }
+
+  /* line 174, ../sass/_base.scss */
+  .small-2 {
+    width: 16.66667%;
+  }
+
+  /* line 177, ../sass/_base.scss */
+  .small-3 {
+    width: 25%;
+  }
+
+  /* line 180, ../sass/_base.scss */
+  .small-4 {
+    width: 33.33333%;
+  }
+
+  /* line 183, ../sass/_base.scss */
+  .small-5 {
+    width: 41.66667%;
+  }
+
+  /* line 186, ../sass/_base.scss */
+  .small-6 {
+    width: 50%;
+  }
+
+  /* line 189, ../sass/_base.scss */
+  .small-7 {
+    width: 58.33333%;
+  }
+
+  /* line 192, ../sass/_base.scss */
+  .small-8 {
+    width: 66.66667%;
+  }
+
+  /* line 195, ../sass/_base.scss */
+  .small-9 {
+    width: 75%;
+  }
+
+  /* line 198, ../sass/_base.scss */
+  .small-10 {
+    width: 83.33333%;
+  }
+
+  /* line 201, ../sass/_base.scss */
+  .small-11 {
+    width: 91.66667%;
+  }
+
+  /* line 204, ../sass/_base.scss */
+  .small-12 {
+    width: 100%;
+  }
+
+  /* line 207, ../sass/_base.scss */
+  .small-offset-0 {
+    margin-left: 0%;
+  }
+
+  /* line 210, ../sass/_base.scss */
+  .small-offset-1 {
+    margin-left: 8.33333%;
+  }
+
+  /* line 213, ../sass/_base.scss */
+  .small-offset-2 {
+    margin-left: 16.66667%;
+  }
+
+  /* line 216, ../sass/_base.scss */
+  .small-offset-3 {
+    margin-left: 25%;
+  }
+
+  /* line 219, ../sass/_base.scss */
+  .small-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /* line 222, ../sass/_base.scss */
+  .small-offset-5 {
+    margin-left: 41.66667%;
+  }
+
+  /* line 225, ../sass/_base.scss */
+  .small-offset-6 {
+    margin-left: 50%;
+  }
+
+  /* line 228, ../sass/_base.scss */
+  .small-offset-7 {
+    margin-left: 58.33333%;
+  }
+
+  /* line 231, ../sass/_base.scss */
+  .small-offset-8 {
+    margin-left: 66.66667%;
+  }
+
+  /* line 234, ../sass/_base.scss */
+  .small-offset-9 {
+    margin-left: 75%;
+  }
+
+  /* line 237, ../sass/_base.scss */
+  .small-offset-10 {
+    margin-left: 83.33333%;
+  }
+
+  /* line 240, ../sass/_base.scss */
+  [class*="column"] + [class*="column"]:last-child {
+    float: right;
+  }
+
+  /* line 243, ../sass/_base.scss */
+  [class*="column"] + [class*="column"].end {
+    float: left;
+  }
+
+  /* line 247, ../sass/_base.scss */
+  .column.small-centered,
+  .columns.small-centered {
+    margin-left: auto;
+    margin-right: auto;
+    float: none !important;
+  }
+}
+@media only screen and (min-width: 480px) {
+  /* line 252, ../sass/_base.scss */
+  .medium-1 {
+    width: 8.33333%;
+  }
+
+  /* line 255, ../sass/_base.scss */
+  .medium-2 {
+    width: 16.66667%;
+  }
+
+  /* line 258, ../sass/_base.scss */
+  .medium-3 {
+    width: 25%;
+  }
+
+  /* line 261, ../sass/_base.scss */
+  .medium-4 {
+    width: 33.33333%;
+  }
+
+  /* line 264, ../sass/_base.scss */
+  .medium-5 {
+    width: 41.66667%;
+  }
+
+  /* line 267, ../sass/_base.scss */
+  .medium-6 {
+    width: 50%;
+  }
+
+  /* line 270, ../sass/_base.scss */
+  .medium-7 {
+    width: 58.33333%;
+  }
+
+  /* line 273, ../sass/_base.scss */
+  .medium-8 {
+    width: 66.66667%;
+  }
+
+  /* line 276, ../sass/_base.scss */
+  .medium-9 {
+    width: 75%;
+  }
+
+  /* line 279, ../sass/_base.scss */
+  .medium-10 {
+    width: 83.33333%;
+  }
+
+  /* line 282, ../sass/_base.scss */
+  .medium-11 {
+    width: 91.66667%;
+  }
+
+  /* line 285, ../sass/_base.scss */
+  .medium-12 {
+    width: 100%;
+  }
+
+  /* line 288, ../sass/_base.scss */
+  .medium-offset-0 {
+    margin-left: 0%;
+  }
+
+  /* line 291, ../sass/_base.scss */
+  .medium-offset-1 {
+    margin-left: 8.33333%;
+  }
+
+  /* line 294, ../sass/_base.scss */
+  .medium-offset-2 {
+    margin-left: 16.66667%;
+  }
+
+  /* line 297, ../sass/_base.scss */
+  .medium-offset-3 {
+    margin-left: 25%;
+  }
+
+  /* line 300, ../sass/_base.scss */
+  .medium-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /* line 303, ../sass/_base.scss */
+  .medium-offset-5 {
+    margin-left: 41.66667%;
+  }
+
+  /* line 306, ../sass/_base.scss */
+  .medium-offset-6 {
+    margin-left: 50%;
+  }
+
+  /* line 309, ../sass/_base.scss */
+  .medium-offset-7 {
+    margin-left: 58.33333%;
+  }
+
+  /* line 312, ../sass/_base.scss */
+  .medium-offset-8 {
+    margin-left: 66.66667%;
+  }
+
+  /* line 315, ../sass/_base.scss */
+  .medium-offset-9 {
+    margin-left: 75%;
+  }
+
+  /* line 318, ../sass/_base.scss */
+  .medium-offset-10 {
+    margin-left: 83.33333%;
+  }
+
+  /* line 321, ../sass/_base.scss */
+  .medium-offset-11 {
+    margin-left: 91.66667%;
+  }
+
+  /* line 324, ../sass/_base.scss */
+  .medium-push-1 {
+    left: 8.33333%;
+    right: auto;
+  }
+
+  /* line 328, ../sass/_base.scss */
+  .medium-pull-1 {
+    right: 8.33333%;
+    left: auto;
+  }
+
+  /* line 332, ../sass/_base.scss */
+  .medium-push-2 {
+    left: 16.66667%;
+    right: auto;
+  }
+
+  /* line 336, ../sass/_base.scss */
+  .medium-pull-2 {
+    right: 16.66667%;
+    left: auto;
+  }
+
+  /* line 340, ../sass/_base.scss */
+  .medium-push-3 {
+    left: 25%;
+    right: auto;
+  }
+
+  /* line 344, ../sass/_base.scss */
+  .medium-pull-3 {
+    right: 25%;
+    left: auto;
+  }
+
+  /* line 348, ../sass/_base.scss */
+  .medium-push-4 {
+    left: 33.33333%;
+    right: auto;
+  }
+
+  /* line 352, ../sass/_base.scss */
+  .medium-pull-4 {
+    right: 33.33333%;
+    left: auto;
+  }
+
+  /* line 356, ../sass/_base.scss */
+  .medium-push-5 {
+    left: 41.66667%;
+    right: auto;
+  }
+
+  /* line 360, ../sass/_base.scss */
+  .medium-pull-5 {
+    right: 41.66667%;
+    left: auto;
+  }
+
+  /* line 364, ../sass/_base.scss */
+  .medium-push-6 {
+    left: 50%;
+    right: auto;
+  }
+
+  /* line 368, ../sass/_base.scss */
+  .medium-pull-6 {
+    right: 50%;
+    left: auto;
+  }
+
+  /* line 372, ../sass/_base.scss */
+  .medium-push-7 {
+    left: 58.33333%;
+    right: auto;
+  }
+
+  /* line 376, ../sass/_base.scss */
+  .medium-pull-7 {
+    right: 58.33333%;
+    left: auto;
+  }
+
+  /* line 380, ../sass/_base.scss */
+  .medium-push-8 {
+    left: 66.66667%;
+    right: auto;
+  }
+
+  /* line 384, ../sass/_base.scss */
+  .medium-pull-8 {
+    right: 66.66667%;
+    left: auto;
+  }
+
+  /* line 388, ../sass/_base.scss */
+  .medium-push-9 {
+    left: 75%;
+    right: auto;
+  }
+
+  /* line 392, ../sass/_base.scss */
+  .medium-pull-9 {
+    right: 75%;
+    left: auto;
+  }
+
+  /* line 396, ../sass/_base.scss */
+  .medium-push-10 {
+    left: 83.33333%;
+    right: auto;
+  }
+
+  /* line 400, ../sass/_base.scss */
+  .medium-pull-10 {
+    right: 83.33333%;
+    left: auto;
+  }
+
+  /* line 404, ../sass/_base.scss */
+  .medium-push-11 {
+    left: 91.66667%;
+    right: auto;
+  }
+
+  /* line 408, ../sass/_base.scss */
+  .medium-pull-11 {
+    right: 91.66667%;
+    left: auto;
+  }
+
+  /* line 413, ../sass/_base.scss */
+  .column.medium-centered,
+  .columns.medium-centered {
+    margin-left: auto;
+    margin-right: auto;
+    float: none !important;
+  }
+
+  /* line 419, ../sass/_base.scss */
+  .column.medium-uncentered,
+  .columns.medium-uncentered {
+    margin-left: 0;
+    margin-right: 0;
+    float: left !important;
+  }
+}
+@media only screen and (min-width: 768px) {
+  /* line 424, ../sass/_base.scss */
+  .large-1 {
+    width: 8.33333%;
+  }
+
+  /* line 427, ../sass/_base.scss */
+  .large-2 {
+    width: 16.66667%;
+  }
+
+  /* line 430, ../sass/_base.scss */
+  .large-3 {
+    width: 25%;
+  }
+
+  /* line 433, ../sass/_base.scss */
+  .large-4 {
+    width: 33.33333%;
+  }
+
+  /* line 436, ../sass/_base.scss */
+  .large-5 {
+    width: 41.66667%;
+  }
+
+  /* line 439, ../sass/_base.scss */
+  .large-6 {
+    width: 50%;
+  }
+
+  /* line 442, ../sass/_base.scss */
+  .large-7 {
+    width: 58.33333%;
+  }
+
+  /* line 445, ../sass/_base.scss */
+  .large-8 {
+    width: 66.66667%;
+  }
+
+  /* line 448, ../sass/_base.scss */
+  .large-9 {
+    width: 75%;
+  }
+
+  /* line 451, ../sass/_base.scss */
+  .large-10 {
+    width: 83.33333%;
+  }
+
+  /* line 454, ../sass/_base.scss */
+  .large-11 {
+    width: 91.66667%;
+  }
+
+  /* line 457, ../sass/_base.scss */
+  .large-12 {
+    width: 100%;
+  }
+
+  /* line 460, ../sass/_base.scss */
+  .large-offset-0 {
+    margin-left: 0%;
+  }
+
+  /* line 463, ../sass/_base.scss */
+  .large-offset-1 {
+    margin-left: 8.33333%;
+  }
+
+  /* line 466, ../sass/_base.scss */
+  .large-offset-2 {
+    margin-left: 16.66667%;
+  }
+
+  /* line 469, ../sass/_base.scss */
+  .large-offset-3 {
+    margin-left: 25%;
+  }
+
+  /* line 472, ../sass/_base.scss */
+  .large-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /* line 475, ../sass/_base.scss */
+  .large-offset-5 {
+    margin-left: 41.66667%;
+  }
+
+  /* line 478, ../sass/_base.scss */
+  .large-offset-6 {
+    margin-left: 50%;
+  }
+
+  /* line 481, ../sass/_base.scss */
+  .large-offset-7 {
+    margin-left: 58.33333%;
+  }
+
+  /* line 484, ../sass/_base.scss */
+  .large-offset-8 {
+    margin-left: 66.66667%;
+  }
+
+  /* line 487, ../sass/_base.scss */
+  .large-offset-9 {
+    margin-left: 75%;
+  }
+
+  /* line 490, ../sass/_base.scss */
+  .large-offset-10 {
+    margin-left: 83.33333%;
+  }
+
+  /* line 493, ../sass/_base.scss */
+  .large-offset-11 {
+    margin-left: 91.66667%;
+  }
+
+  /* line 496, ../sass/_base.scss */
+  .large-push-1 {
+    left: 8.33333%;
+    right: auto;
+  }
+
+  /* line 500, ../sass/_base.scss */
+  .large-pull-1 {
+    right: 8.33333%;
+    left: auto;
+  }
+
+  /* line 504, ../sass/_base.scss */
+  .large-push-2 {
+    left: 16.66667%;
+    right: auto;
+  }
+
+  /* line 508, ../sass/_base.scss */
+  .large-pull-2 {
+    right: 16.66667%;
+    left: auto;
+  }
+
+  /* line 512, ../sass/_base.scss */
+  .large-push-3 {
+    left: 25%;
+    right: auto;
+  }
+
+  /* line 516, ../sass/_base.scss */
+  .large-pull-3 {
+    right: 25%;
+    left: auto;
+  }
+
+  /* line 520, ../sass/_base.scss */
+  .large-push-4 {
+    left: 33.33333%;
+    right: auto;
+  }
+
+  /* line 524, ../sass/_base.scss */
+  .large-pull-4 {
+    right: 33.33333%;
+    left: auto;
+  }
+
+  /* line 528, ../sass/_base.scss */
+  .large-push-5 {
+    left: 41.66667%;
+    right: auto;
+  }
+
+  /* line 532, ../sass/_base.scss */
+  .large-pull-5 {
+    right: 41.66667%;
+    left: auto;
+  }
+
+  /* line 536, ../sass/_base.scss */
+  .large-push-6 {
+    left: 50%;
+    right: auto;
+  }
+
+  /* line 540, ../sass/_base.scss */
+  .large-pull-6 {
+    right: 50%;
+    left: auto;
+  }
+
+  /* line 544, ../sass/_base.scss */
+  .large-push-7 {
+    left: 58.33333%;
+    right: auto;
+  }
+
+  /* line 548, ../sass/_base.scss */
+  .large-pull-7 {
+    right: 58.33333%;
+    left: auto;
+  }
+
+  /* line 552, ../sass/_base.scss */
+  .large-push-8 {
+    left: 66.66667%;
+    right: auto;
+  }
+
+  /* line 556, ../sass/_base.scss */
+  .large-pull-8 {
+    right: 66.66667%;
+    left: auto;
+  }
+
+  /* line 560, ../sass/_base.scss */
+  .large-push-9 {
+    left: 75%;
+    right: auto;
+  }
+
+  /* line 564, ../sass/_base.scss */
+  .large-pull-9 {
+    right: 75%;
+    left: auto;
+  }
+
+  /* line 568, ../sass/_base.scss */
+  .large-push-10 {
+    left: 83.33333%;
+    right: auto;
+  }
+
+  /* line 572, ../sass/_base.scss */
+  .large-pull-10 {
+    right: 83.33333%;
+    left: auto;
+  }
+
+  /* line 576, ../sass/_base.scss */
+  .large-push-11 {
+    left: 91.66667%;
+    right: auto;
+  }
+
+  /* line 580, ../sass/_base.scss */
+  .large-pull-11 {
+    right: 91.66667%;
+    left: auto;
+  }
+
+  /* line 585, ../sass/_base.scss */
+  .column.large-centered,
+  .columns.large-centered {
+    margin-left: auto;
+    margin-right: auto;
+    float: none !important;
+  }
+
+  /* line 591, ../sass/_base.scss */
+  .column.large-uncentered,
+  .columns.large-uncentered {
+    margin-left: 0;
+    margin-right: 0;
+    float: left !important;
+  }
+}
+/* line 610, ../sass/_base.scss */
+.hidden {
+  display: none;
+  height: 0;
+}
+
+/* line 615, ../sass/_base.scss */
+.shown {
+  display: block;
+}
+
+/* line 1, ../sass/_layout.scss */
+.wrapper {
+  display: block;
+}
+
+/* line 5, ../sass/_layout.scss */
+.vidwrapper {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  float: left;
+  padding: 0;
+  width: 50%;
+}
+/* line 11, ../sass/_layout.scss */
+.vidwrapper a {
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  opacity: 0.5;
+  z-index: 999;
+}
+/* line 19, ../sass/_layout.scss */
+.vidwrapper a:hover {
+  opacity: 0.001;
+}
+
+/* line 25, ../sass/_layout.scss */
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
