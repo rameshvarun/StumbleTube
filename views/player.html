@@ -156,6 +156,7 @@
      });
 
      socket.on('likevideoRemote', function(data){
+      $(".like").trigger('click')
      });
 
      socket.on('dislikevideoRemote', function(data){
