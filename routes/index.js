@@ -3,91 +3,154 @@
  * GET home page.
  */
  
- var gauth = require('./../gauth');
+var gauth = require('./../gauth');
  
- var request = require('request');
+var request = require('request');
  
 var parseString = require('xml2js').parseString;
 
 var db = require('./../db');
 
-var APP_URL = process.env.URL || "http://localhost:3000/"
- 
+var globals = require('./../globals');
+
+var async = require('async');
+var fs = require('fs');
+
+//Given a video entry, parses and extracts the id
+function getVideoID( entry ) {
+	for(var i = 0; i < entry.link.length; ++i)
+	{
+		if(entry.link[i]["$"].rel == "self") {
+			var list = entry.link[i]["$"].href.split("/");
+			
+			var id = list[list.length - 1];
+			return id;
+		}
+	}
+	
+	return null;
+}
+
+
+//Index page
 exports.index = function(req, res){
 
   res.render( 'index.html', { loginurl: gauth.loginurl})
-    
+   
+  //If the user is already logged in, take them to the player
   if(req.session.tokens)
   {
 	res.redirect('/player');
   }
-
 };
 
-
-
-
-exports.player = function(req, res){
-	var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + gauth.v2_key + "&access_token=" + req.session.tokens.access_token;
-	console.log(recUrl);
+/*	num - number of videos to get from reccomendations
+	session - session information, must contain access token, as well as list of video ids already watched
+	result_callback - calls this callback with the list of video ids*/
+function getVideos( num, session, result_callback )
+{
+	var headers = {
+	'Content-Type' : 'application/atom+xml',
+	'Authorization' : 'Bearer ' + session.tokens.access_token,
+	'GData-Version' : 2,
+	'X-GData-Key' : 'key=' + gauth.v2_key
+	}
 	
-	request.get( recUrl,
-		function (error, response, body)
-		{
-			  if (!error && response.statusCode == 200)
-			  {
-				parseString( body,
-					function (err, result)
+	//Query both the user's recommendations and most popular feed in parallel
+	async.parallel([
+		function(callback){
+			request.get( globals.MOST_POPULAR_URL,
+			function (error, response, body)
+			{
+				if (!error && response.statusCode == 200)
+				{
+					parseString( body, function ( err, result)
 					{
-						videos = [];
+						callback( null, result.feed.entry );
+					});
+				}
+				else
+				{
+					console.log("Could not get most popular videos feed.");
+					callback( null, [] );
+				}
+			});
+		},
+		function(callback){
+			request.get(
+			{url : globals.RECCOMENDATION_URL, headers : headers},
+					
+			function (error, response, body)
+			{
+				if (!error && response.statusCode == 200)
+				{
+					parseString( body, function ( err, result)
+					{
+						fs.writeFileSync("reccomendations.log", JSON.stringify( result, undefined, 2 ));
 						
-						i = 0
-						while(videos.length < 4)
-						{
-							var entry = result.feed.entry[i];
-							var list = entry.id[0].split(":")
-							var id = list[ list.length - 1]
-							
-							if( videos.indexOf(id) < 0)
-							{
-								videos.push(id);
-								req.session.videos.push(id);
-							}
-							
-							++i;
-						}
-						
-						res.render( 'player.html', { videos: videos, APP_URL: APP_URL})
-					}
-				);
-			  }
-			  else
-			  {
-				res.send("Could not find recommendations.");
-			  }
-		}  
-	)
-}
-
-exports.oauth2callback = function(req, res){
-  var code = req.query.code;
-  gauth.client.getToken( code,
-  
-   function(err, tokens){
-   
-   
-		req.session.tokens = tokens;
+						callback( null, result.feed.entry );
+					});
+				}
+				else
+				{
+					console.log("Could not get personalized reccomendations.");
+					callback( null, [] );
+				}
+			});
+		}
+	],
+	function(err, results){
+		entries = []
+		if( results[1] ) entries =  entries.concat( results[1] );
+		if( results[0] ) entries =  entries.concat( results[0] );
 		
-		if( !req.session.videos)
-		{
-			req.session.videos = []
+		console.log( entries.length + " videos found.");
+		
+		videos = [];
+		i = 0;
+		
+		while(videos.length < 4) {
+			var id = getVideoID( entries[i] );
+			
+			if( videos.indexOf(id) < 0 &&
+				session.videos.indexOf(id) < 0)
+			{
+				videos.push(id);
+				session.videos.push(id);
+			}
+			
+			++i;
 		}
 		
-		res.redirect('/player');
+		fs.writeFileSync("videos.log", JSON.stringify( entries, undefined, 2 ));
+		
+		result_callback(videos);
+	});
+}
+
+//Player page
+exports.player = function(req, res){
+
+	getVideos(4, req.session,
+	function(videos)
+	{
+		res.render( 'player.html', { videos: videos, APP_URL: globals.APP_URL});
+	});
+}
+
+function rateVideo( video_id, rating, session)
+{
+	var recUrl = 'https://gdata.youtube.com/feeds/api/videos/' + data.videoid + '/ratings';
+	
+	var headers = {
+	'Content-Type' : 'application/atom+xml',
+	'Authorization' : 'Bearer ' + session.tokens.access_token,
+	'GData-Version' : 2,
+	'X-GData-Key' : 'key=' + gauth.v2_key
 	}
-  );
-  
-};
+	
+	
+}
 
 exports.socket = function(socket)
 {
@@ -97,50 +160,20 @@ exports.socket = function(socket)
 	
 	socket.join(hs.sessionID);
 	
-	var remoteurl = APP_URL + "remote?sessionID=" + hs.sessionID
+	var remoteurl = globals.APP_URL + "remote?sessionID=" + hs.sessionID
 	var remoteimage = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + encodeURIComponent(remoteurl);
 	socket.emit('qrcode', { url : remoteurl, image: remoteimage });
 	
 	socket.emit('success', {});
 
 	socket.on('getvideos', function(data){
-		var recUrl = 'http://gdata.youtube.com/feeds/api/users/default/recommendations?v=2&key=' + gauth.v2_key + "&access_token=" + hs.session.tokens.access_token;
-		console.log(recUrl);
-		request.get( recUrl,
-		function (error, response, body)
+	
+		getVideos(4, hs.session,
+		function(videos)
 		{
-			  if (!error && response.statusCode == 200)
-			  {
-				parseString( body,
-					function (err, result)
-					{
-						videos = [];
-						
-						i = 0
-						while(videos.length < 4)
-						{
-							var entry = result.feed.entry[i];
-							var list = entry.id[0].split(":")
-							var id = list[ list.length - 1]
-							
-							if( videos.indexOf(id) < 0)
-							{
-								videos.push(id);
-								hs.session.videos.push(id);
-							}
-							++i;
-						}
-						
-						socket.emit('newvideos', {videos : videos} );
-					}
-				);
-			  }
-			  else
-			  {
-				res.send("Could not find recommendations.");
-			  }
-		}  
-		)
+			socket.emit('newvideos', {videos : videos} );
+		});
+
 	});
 	
 	socket.on('likevideo', function(data){
@@ -197,7 +230,7 @@ exports.socket = function(socket)
 	
 	
 
-	//Remote socket functions
+	//Commands from the remote - server simply forwards it to the player
 	socket.on('refresh', function(data){
 		socket.broadcast.to( data.sessionID ).emit('refresh', data)
 	});
