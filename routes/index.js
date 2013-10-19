@@ -138,9 +138,15 @@ exports.player = function(req, res){
 	});
 }
 
+var videoLikeXML = '<?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"><yt:rating value="like"/></entry>';
+var videoDislikeXML = '<?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"><yt:rating value="dislike"/></entry>';
+
+/*	video_id - the id of the video to be rated
+	rating - "like" or "dislike"
+	session - session information, must contain access token, as well as list of video ids already watched */
 function rateVideo( video_id, rating, session)
 {
-	var recUrl = 'https://gdata.youtube.com/feeds/api/videos/' + data.videoid + '/ratings';
+	var recUrl = 'https://gdata.youtube.com/feeds/api/videos/' + video_id + '/ratings';
 	
 	var headers = {
 	'Content-Type' : 'application/atom+xml',
@@ -149,7 +155,26 @@ function rateVideo( video_id, rating, session)
 	'X-GData-Key' : 'key=' + gauth.v2_key
 	}
 	
+	var body = "";
 	
+	if(rating == "like") body = videoLikeXML;
+	if(rating == "dislike") body = videoDislikeXML;
+	
+	request.post(
+		{
+		headers : headers,
+		url : recUrl,
+		body : videoLikeXML
+		},
+			
+		function (error, response, body)
+		{
+			if (!error && response.statusCode == 201)
+			{
+				console.log("Video successfully rated.");
+			}
+		}
+	);
 }
 
 exports.socket = function(socket)
@@ -177,55 +202,11 @@ exports.socket = function(socket)
 	});
 	
 	socket.on('likevideo', function(data){
-		var recUrl = 'https://gdata.youtube.com/feeds/api/videos/' + data.videoid + '/ratings';
-		
-		console.log(recUrl);
-		
-		request.post(
-		
-		{
-		headers : {'Content-Type' : 'application/atom+xml',
-					'Authorization' : 'Bearer ' + hs.session.tokens.access_token,
-					'GData-Version' : 2,
-					'X-GData-Key' : 'key=' + gauth.v2_key},
-		url : recUrl,
-		body : videoLikeXML
-		},
-			
-			function (error, response, body)
-			{
-				if (!error && response.statusCode == 201)
-				  {
-					console.log("Video successfully liked.");
-				  }
-			}
-			);
+		rateVideo( data.videoid, "like", hs.session);
 	});
 	
 	socket.on('dislikevideo', function(data){
-		var recUrl = 'https://gdata.youtube.com/feeds/api/videos/' + data.videoid + '/ratings';
-		
-		console.log(recUrl);
-		
-		request.post(
-		
-		{
-		headers : {'Content-Type' : 'application/atom+xml',
-					'Authorization' : 'Bearer ' + hs.session.tokens.access_token,
-					'GData-Version' : 2,
-					'X-GData-Key' : 'key=' + gauth.v2_key},
-		url : recUrl,
-		body : videoDislikeXML
-		},
-			
-			function (error, response, body)
-			{
-				if (!error && response.statusCode == 201)
-				  {
-					console.log("Video successfully liked.");
-				  }
-			}
-			);
+		rateVideo( data.videoid, "dislike", hs.session);
 	});
 	
 	
@@ -245,5 +226,3 @@ exports.socket = function(socket)
 	});
 }
 
-var videoLikeXML = '<?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"><yt:rating value="like"/></entry>';
-var videoDislikeXML = '<?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"><yt:rating value="dislike"/></entry>';

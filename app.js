@@ -49,7 +49,7 @@ server.listen(app.get('port'), function(){
 });
 
 app.get('/', routes.index);
-app.get('/oauth2callback', require('./routes/logout').get);
+app.get('/oauth2callback', require('./routes/oauth2callback').get);
 app.get('/player', routes.player);
 
 app.get('/logout', require('./routes/logout').get);
