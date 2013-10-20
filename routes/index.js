@@ -85,9 +85,7 @@ function getVideos( num, session, result_callback )
 				if (!error && response.statusCode == 200)
 				{
 					parseString( body, function ( err, result)
-					{
-						fs.writeFileSync("reccomendations.log", JSON.stringify( result, undefined, 2 ));
-						
+					{	
 						callback( null, result.feed.entry );
 					});
 				}
@@ -109,7 +107,7 @@ function getVideos( num, session, result_callback )
 		videos = [];
 		i = 0;
 		
-		while(videos.length < 4) {
+		while(videos.length < 4 && i < entries.length) {
 			var id = getVideoID( entries[i] );
 			
 			if( videos.indexOf(id) < 0 &&
@@ -121,8 +119,6 @@ function getVideos( num, session, result_callback )
 			
 			++i;
 		}
-		
-		fs.writeFileSync("videos.log", JSON.stringify( entries, undefined, 2 ));
 		
 		result_callback(videos);
 	});
