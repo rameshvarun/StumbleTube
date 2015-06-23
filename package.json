@@ -6,21 +6,19 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "*",
-	"cookie": "*",
-	"session" : "*",
-	"connect" : "*",
-    "swig": "*",
-	"consolidate": "*",
-	"socket.io": "*",
-	"async" : "*",
-	"googleapis" : "*",
-	"request" : "*",
-	"xml2js" : "*",
-	"redis" : "*"
+    "async": "^1.2.1",
+    "connect": "^3.4.0",
+    "consolidate": "^0.13.1",
+    "cookie": "^0.1.3",
+    "express": "^4.13.0",
+    "googleapis": "^2.0.5",
+    "redis": "^0.12.1",
+    "request": "^2.58.0",
+    "socket.io": "^1.3.5",
+    "swig": "^1.4.2"
   },
   "engines": {
-	"node": "0.10.x",
-	"npm": "1.3.x"
+    "node": "0.10.x",
+    "npm": "1.3.x"
   }
 }

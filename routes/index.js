@@ -2,15 +2,10 @@
 /*
  * GET home page.
  */
- 
+
 var gauth = require('./../gauth');
- 
 var request = require('request');
- 
 var parseString = require('xml2js').parseString;
-
-var db = require('./../db');
-
 var globals = require('./../globals');
 
 var async = require('async');
@@ -22,25 +17,23 @@ function getVideoID( entry ) {
 	{
 		if(entry.link[i]["$"].rel == "self") {
 			var list = entry.link[i]["$"].href.split("/");
-			
+
 			var id = list[list.length - 1];
 			return id;
 		}
 	}
-	
+
 	return null;
 }
 
 
 //Index page
 exports.index = function(req, res){
-
   res.render( 'index.html', { loginurl: gauth.loginurl})
-   
+
   //If the user is already logged in, take them to the player
-  if(req.session.tokens)
-  {
-	res.redirect('/player');
+  if(req.session.tokens) {
+	   res.redirect('/player');
   }
 };
 
@@ -50,12 +43,12 @@ exports.index = function(req, res){
 function getVideos( num, session, result_callback )
 {
 	var headers = {
-	'Content-Type' : 'application/atom+xml',
-	'Authorization' : 'Bearer ' + session.tokens.access_token,
-	'GData-Version' : 2,
-	'X-GData-Key' : 'key=' + gauth.v2_key
+	 'Content-Type' : 'application/atom+xml',
+	 'Authorization' : 'Bearer ' + session.tokens.access_token,
+	 'GData-Version' : 2,
+	 'X-GData-Key' : 'key=' + gauth.v2_key
 	}
-	
+
 	//Query both the user's recommendations and most popular feed in parallel
 	async.parallel([
 		function(callback){
@@ -79,13 +72,13 @@ function getVideos( num, session, result_callback )
 		function(callback){
 			request.get(
 			{url : globals.RECCOMENDATION_URL, headers : headers},
-					
+
 			function (error, response, body)
 			{
 				if (!error && response.statusCode == 200)
 				{
 					parseString( body, function ( err, result)
-					{	
+					{
 						callback( null, result.feed.entry );
 					});
 				}
@@ -101,25 +94,25 @@ function getVideos( num, session, result_callback )
 		entries = []
 		if( results[1] ) entries =  entries.concat( results[1] );
 		if( results[0] ) entries =  entries.concat( results[0] );
-		
+
 		console.log( entries.length + " videos found.");
-		
+
 		videos = [];
 		i = 0;
-		
+
 		while(videos.length < 4 && i < entries.length) {
 			var id = getVideoID( entries[i] );
-			
+
 			if( videos.indexOf(id) < 0 &&
 				session.videos.indexOf(id) < 0)
 			{
 				videos.push(id);
 				session.videos.push(id);
 			}
-			
+
 			++i;
 		}
-		
+
 		result_callback(videos);
 	});
 }
@@ -143,26 +136,26 @@ var videoDislikeXML = '<?xml version="1.0" encoding="UTF-8"?><entry xmlns="http:
 function rateVideo( video_id, rating, session)
 {
 	var recUrl = 'https://gdata.youtube.com/feeds/api/videos/' + video_id + '/ratings';
-	
+
 	var headers = {
 	'Content-Type' : 'application/atom+xml',
 	'Authorization' : 'Bearer ' + session.tokens.access_token,
 	'GData-Version' : 2,
 	'X-GData-Key' : 'key=' + gauth.v2_key
 	}
-	
+
 	var body = "";
-	
+
 	if(rating == "like") body = videoLikeXML;
 	if(rating == "dislike") body = videoDislikeXML;
-	
+
 	request.post(
 		{
 		headers : headers,
 		url : recUrl,
 		body : videoLikeXML
 		},
-			
+
 		function (error, response, body)
 		{
 			if (!error && response.statusCode == 201)
@@ -178,17 +171,17 @@ exports.socket = function(socket)
 
 	var hs = socket.handshake;
 	console.log('A socket with sessionID ' + hs.sessionID  + ' connected!');
-	
+
 	socket.join(hs.sessionID);
-	
+
 	var remoteurl = globals.APP_URL + "remote?sessionID=" + hs.sessionID
 	var remoteimage = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + encodeURIComponent(remoteurl);
 	socket.emit('qrcode', { url : remoteurl, image: remoteimage });
-	
+
 	socket.emit('success', {});
 
 	socket.on('getvideos', function(data){
-	
+
 		getVideos(4, hs.session,
 		function(videos)
 		{
@@ -196,16 +189,16 @@ exports.socket = function(socket)
 		});
 
 	});
-	
+
 	socket.on('likevideo', function(data){
 		rateVideo( data.videoid, "like", hs.session);
 	});
-	
+
 	socket.on('dislikevideo', function(data){
 		rateVideo( data.videoid, "dislike", hs.session);
 	});
-	
-	
+
+
 
 	//Commands from the remote - server simply forwards it to the player
 	socket.on('refresh', function(data){
@@ -221,4 +214,3 @@ exports.socket = function(socket)
 		socket.broadcast.to( data.sessionID ).emit('dislikevideoRemote', data)
 	});
 }
-

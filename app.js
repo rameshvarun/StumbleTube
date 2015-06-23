@@ -1,17 +1,14 @@
-
 //Import all libraries
 var express = require('express');
 var http = require('http');
 var path = require('path');
 var swig = require('swig');
 
-
-
 var routes = require('./routes');
 
 var app = express();
 
-//Redis-stored session
+//Sessions stored in memory
 var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
 
@@ -26,8 +23,6 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use( express.methodOverride() );
-
-
 
 //Register Swig as template parser
 app.engine('html', swig.renderFile);
@@ -63,9 +58,9 @@ io.set('authorization', function (data, accept) {
 
    if (data.headers.cookie) {
         data.cookie = connect.utils.parseSignedCookies(cookie.parse(decodeURIComponent(data.headers.cookie)),secret);
-        
-		data.sessionID = data.cookie['express.sid'];
-        // save the session store to the data object 
+
+		    data.sessionID = data.cookie['express.sid'];
+        // save the session store to the data object
         // (as required by the Session constructor)
         data.sessionStore = sessionStore;
         sessionStore.get(data.sessionID, function (err, session) {
@@ -81,8 +76,6 @@ io.set('authorization', function (data, accept) {
     } else {
        return accept('No cookie transmitted.', false);
     }
-	
 });
 
 io.sockets.on('connection', routes.socket )
-
